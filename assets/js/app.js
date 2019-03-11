@@ -23,7 +23,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 // Our redux files
 import combinedReducers from './reducers';
-import { addRows } from './search/actions';
+import { addRows } from './summary/actions';
+import { initialState } from './initialState';
 
 import 'phoenix_html';
 import socket from './socket';
@@ -32,11 +33,9 @@ import L from 'leaflet';
 
 const reduxStore = createStore(combinedReducers, initialState);
 
-if ($('.summary').parent().length) {
-  ReactDOM.render(
-    <Provider store={reduxStore}>
-      <Summary />
-    </Provider>,
-    document.getElementById("react")
-  );
-}
+ReactDOM.render(
+  <Provider store={reduxStore}>
+    <Summary />
+  </Provider>,
+  document.getElementById("react")
+);
