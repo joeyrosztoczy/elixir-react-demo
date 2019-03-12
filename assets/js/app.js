@@ -33,7 +33,7 @@ import socket from './socket';
 
 import L from 'leaflet';
 
-const reduxStore = createStore(combinedReducers, initialState);
+export const reduxStore = createStore(combinedReducers, initialState);
 
 ReactDOM.render(
   <Provider store={reduxStore}>

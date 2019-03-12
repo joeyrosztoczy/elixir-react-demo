@@ -8,7 +8,15 @@ class SummaryItem extends React.Component {
 
     return (
       <div>
+        <div>
+          <div>
+            <span>{ station.station_id }</span>
+            <span>{ station.num_docks_available }</span>
+            <span>{ station.num_bikes_available }</span>
+          </div>
+        </div>
       </div>
+
     );
   }
 }

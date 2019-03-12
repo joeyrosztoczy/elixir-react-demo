@@ -12,9 +12,7 @@ class Summary extends React.Component {
     stationChannel.join()
       .receive("ok", resp => {
         console.log("Joined dashboard channel successfully.");
-        const response = requestStations()
-        console.log(response);
-        // Do something cool 
+        requestStations();
       })
       .receive("error", onError)
       .receive("timeout", onTimeout)
@@ -23,7 +21,7 @@ class Summary extends React.Component {
   render() {
     return (
       <div>
-       <Section />
+       <Section stations={this.props.stations} />
       </div>
     );
   }

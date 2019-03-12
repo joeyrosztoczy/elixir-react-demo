@@ -38,7 +38,7 @@ class SummarySection extends React.Component {
           duration={ 300 }
           height={ this.state.contentHeight }>
           <div className="dashboard--summary-content">
-            { this.displaySummaryItems([]) }
+            { this.displaySummaryItems(stations) }
           </div>
         </AnimateHeight>
         <hr className="section-divider" />

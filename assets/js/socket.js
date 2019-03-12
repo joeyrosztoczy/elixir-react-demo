@@ -1,11 +1,7 @@
 import { Socket } from 'phoenix';
 
-import reduxStore from './app';
-import {
-         clearStation,
-         updateStation,
-         addStation,
-       } from './summary/actions';
+import { reduxStore } from './app';
+import { addStations } from './summary/actions';
 
 // User token gets passed via script tag in layout/app.html
 const socket = new Socket("/socket", {params: 1});
@@ -18,8 +14,9 @@ export const onError = (response) => { console.log("Something went wong, I shoul
 
 export const requestStations = () => {
   stationChannel.push("request_stations")
-    .receive("ok", ({stations}) => {
-      console.log("BOOP", stations);
+    .receive("ok", (responseBody) => {
+      console.log("BOOP", responseBody);
+      reduxStore.dispatch(addStations(responseBody.stations));
     })
     .receive("error", onError)
     .receive("timeout", onTimeout)
