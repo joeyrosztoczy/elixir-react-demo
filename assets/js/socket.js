@@ -9,8 +9,12 @@ const socket = new Socket("/socket", {params: 1});
 socket.connect();
 
 export const stationChannel = socket.channel(`summary:stations`, {});
-export const onTimeout = (response) => { console.log("There may be a networking error, the socket connection has timed out.", response) };
-export const onError = (response) => { console.log("Something went wong, I should alert the user and retry:", response) };
+export const onTimeout = (response) => {
+  console.log("There may be a networking error, the socket connection has timed out.", response)
+};
+export const onError = (response) => {
+  console.log("Something went wong, I should alert the user and retry:", response)
+};
 
 stationChannel.on("stations_updated", ({ stations} ) => {
   reduxStore.dispatch(addStations(stations));

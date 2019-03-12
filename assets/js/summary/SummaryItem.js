@@ -10,9 +10,9 @@ class SummaryItem extends React.Component {
       <div>
         <div>
           <div>
-            <span>{ station.station_id }</span>
-            <span>{ station.num_docks_available }</span>
-            <span>{ station.num_bikes_available }</span>
+            <h3>Station ID: { station.station_id }</h3>
+            <p># Available Docks: { station.num_docks_available }</p>
+            <p># Available Bikes: { station.num_bikes_available }</p>
           </div>
         </div>
       </div>
