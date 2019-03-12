@@ -16,4 +16,12 @@ export const stationChannel = socket.channel(`summary:stations`, {});
 export const onTimeout = (response) => { console.log("There may be a networking error, the socket connection has timed out.", response) };
 export const onError = (response) => { console.log("Something went wong, I should alert the user and retry:", response) };
 
+export const requestStations = () => {
+  stationChannel.push("request_stations")
+    .receive("ok", ({stations}) => {
+      console.log("BOOP", stations);
+    })
+    .receive("error", onError)
+    .receive("timeout", onTimeout)
+}
 export default socket;

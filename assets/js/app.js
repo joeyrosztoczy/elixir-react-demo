@@ -26,6 +26,8 @@ import combinedReducers from './reducers';
 import { addRows } from './summary/actions';
 import { initialState } from './initialState';
 
+import Summary from './summary/summary';
+
 import 'phoenix_html';
 import socket from './socket';
 

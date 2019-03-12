@@ -24,27 +24,21 @@ class SummarySection extends React.Component {
   }
   
   render() {
-    const { field, stations } = this.props;
+    const { stations } = this.props;
 
     return (
       <div className="dashboard--summary-section">
         <div className="dashboard--summary-header">
           <div className="header-left">
-            <h2 onClick={ () => DashboardHelper.zoomToField(field) }>{ field } <span className="dot-spacer">&#183;</span></h2>
-            <p className="p-lg gray">{ stations.length } equipment</p>
           </div>
           <div className="header-right">
-            <i 
-              className={ `toggle-content mdi ${this.state.contentExpanded ? 'mdi-content-remove' : 'mdi-content-add'}` }
-              onClick={ () => this.toggleContent() }>
-            </i>
           </div>
         </div>
         <AnimateHeight
           duration={ 300 }
           height={ this.state.contentHeight }>
           <div className="dashboard--summary-content">
-            { this.displaySummaryItems(stations) }
+            { this.displaySummaryItems([]) }
           </div>
         </AnimateHeight>
         <hr className="section-divider" />
