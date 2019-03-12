@@ -12,8 +12,8 @@ defmodule ElixirReactDemo.Application do
       ElixirReactDemo.Repo,
       # Start the endpoint when the application starts
       ElixirReactDemoWeb.Endpoint,
-      # Starts a worker by calling: ElixirReactDemo.Worker.start_link(arg)
-      {ElixirReactDemo.Station, %{}}
+      # Starts a worker by calling: ElixirReactDemo.start_link(arg)
+      {ElixirReactDemo.Station, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

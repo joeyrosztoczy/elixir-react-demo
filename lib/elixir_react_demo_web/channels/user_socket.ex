@@ -2,7 +2,7 @@ defmodule ElixirReactDemoWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", ElixirReactDemoWeb.RoomChannel
+  channel "summary:stations", ElixirReactDemoWeb.SummaryChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

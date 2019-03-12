@@ -6,25 +6,33 @@ defmodule ElixirReactDemo.Station do
   use GenServer
 
   # Client API
-  def start_link(default \\ %{}) do
-    GenServer.start_link(__MODULE__, default)
+  def start_link(default \\ []) do
+    GenServer.start_link(__MODULE__, default, name: __MODULE__)
+  end
+
+  def get_stations() do
+    GenServer.call(__MODULE__, :get_stations)
   end
 
   # Server API
   def init(state) do
-    send(self(), :poll_gbfs)
+    schedule_update_in(2_000)
     {:ok, state}
+  end
+
+  def handle_call(:get_stations, _from, state) do
+    {:reply, {:ok, state}, state}
   end
 
   @doc """
   Grab the latest list of station statuses from:
   https://gbfs.citibikenyc.com/gbfs/en/station_status.json
   """
-  def handle_info(:poll_gbfs, state) do
+  def handle_info(:poll_gbfs, _state) do
     response = HTTPoison.get!("https://gbfs.citibikenyc.com/gbfs/en/station_status.json")
-    IO.inspect(response)
     schedule_update_in(2_000)
-    {:noreply, state}
+
+    {:noreply, response.body}
   end
 
   defp schedule_update_in(time_until_run) do
