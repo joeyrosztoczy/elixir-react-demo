@@ -32,7 +32,7 @@ defmodule ElixirReactDemo.Station do
       @bike_station_url
       |> get_bike_stations()
       |> Enum.sort(fn station_one, station_two ->
-        station_one["station_id"] < station_two["station_id"]
+        station_one["last_reported"] > station_two["last_reported"]
       end)
 
     SummaryChannel.broadcast_stations(stations)

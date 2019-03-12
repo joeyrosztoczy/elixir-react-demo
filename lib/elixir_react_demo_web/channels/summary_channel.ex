@@ -21,7 +21,6 @@ defmodule ElixirReactDemoWeb.SummaryChannel do
   # Server API
   def handle_in("request_stations", _body, socket) do
     {:ok, stations} = Station.get_stations()
-    IO.inspect(stations)
 
     {:reply, {:ok, %{stations: stations}}, socket}
   end
