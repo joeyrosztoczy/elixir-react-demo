@@ -9,7 +9,7 @@ defmodule ElixirReactDemo.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      ElixirReactDemo.Repo,
+      # ElixirReactDemo.Repo,
       # Start the endpoint when the application starts
       ElixirReactDemoWeb.Endpoint,
       # Starts a worker by calling: ElixirReactDemo.start_link(arg)
