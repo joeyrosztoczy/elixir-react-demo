@@ -6,9 +6,10 @@ I can also Dockerize this if that's preferred.
 
 To start your Phoenix server (I removed the Repo boot in the Supervisor so you won't need a DB):
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+  * Clone the repo and ```$ cd elixir-react-demo```
+  * Install dependencies with `$ mix deps.get`
+  * Install Node.js dependencies with `$ cd assets && npm install`
+  * Start Phoenix endpoint with `$ cd .. && mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
