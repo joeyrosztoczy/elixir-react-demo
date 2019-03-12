@@ -12,9 +12,9 @@ defmodule ElixirReactDemoWeb.SummaryChannel do
   end
 
   # Client API
-  # def broadcast_stations(msg) do
-  #  ElixirReactDemoWeb.Endpoint.broadcast!("summary:stations", "new_stations", msg)
-  # end
+  def broadcast_stations(stations) do
+    ElixirReactDemoWeb.Endpoint.broadcast!("summary:stations", "stations_updated", stations)
+  end
 
   # Server API
   def handle_in("request_stations", _body, socket) do

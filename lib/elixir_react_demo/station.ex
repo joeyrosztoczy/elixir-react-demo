@@ -5,6 +5,8 @@ defmodule ElixirReactDemo.Station do
   """
   use GenServer
 
+  alias ElixirReactDemoWeb.SummaryChannel
+
   # Client API
   def start_link(default \\ []) do
     GenServer.start_link(__MODULE__, default, name: __MODULE__)
@@ -30,6 +32,9 @@ defmodule ElixirReactDemo.Station do
   """
   def handle_info(:poll_gbfs, _state) do
     response = HTTPoison.get!("https://gbfs.citibikenyc.com/gbfs/en/station_status.json")
+
+    decoded_response = Jason.decode!(response.body)
+    SummaryChannel.broadcast_stations(decoded_response["data"])
     schedule_update_in(2_000)
 
     {:noreply, response.body}
