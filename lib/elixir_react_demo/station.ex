@@ -7,6 +7,7 @@ defmodule ElixirReactDemo.Station do
 
   alias ElixirReactDemoWeb.SummaryChannel
 
+  @bike_station_url "https://gbfs.citibikenyc.com/gbfs/en/station_status.json"
   # Client API
   def start_link(default \\ []) do
     GenServer.start_link(__MODULE__, default, name: __MODULE__)
@@ -26,18 +27,24 @@ defmodule ElixirReactDemo.Station do
     {:reply, {:ok, state}, state}
   end
 
-  @doc """
-  Grab the latest list of station statuses from:
-  https://gbfs.citibikenyc.com/gbfs/en/station_status.json
-  """
   def handle_info(:poll_gbfs, _state) do
-    response = HTTPoison.get!("https://gbfs.citibikenyc.com/gbfs/en/station_status.json")
+    stations =
+      @bike_station_url
+      |> get_bike_stations()
+      |> Enum.sort(fn station_one, station_two ->
+        station_one["station_id"] < station_two["station_id"]
+      end)
 
-    decoded_response = Jason.decode!(response.body)
-    SummaryChannel.broadcast_stations(decoded_response["data"])
+    SummaryChannel.broadcast_stations(stations)
     schedule_update_in(2_000)
 
-    {:noreply, response.body}
+    {:noreply, stations}
+  end
+
+  defp get_bike_stations(url) do
+    response = HTTPoison.get!(url)
+    decoded_response = Jason.decode!(response.body)
+    decoded_response["data"]["stations"]
   end
 
   defp schedule_update_in(time_until_run) do

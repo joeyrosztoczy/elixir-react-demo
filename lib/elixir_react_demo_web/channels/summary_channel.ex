@@ -13,15 +13,16 @@ defmodule ElixirReactDemoWeb.SummaryChannel do
 
   # Client API
   def broadcast_stations(stations) do
-    ElixirReactDemoWeb.Endpoint.broadcast!("summary:stations", "stations_updated", stations)
+    ElixirReactDemoWeb.Endpoint.broadcast!("summary:stations", "stations_updated", %{
+      stations: stations
+    })
   end
 
   # Server API
   def handle_in("request_stations", _body, socket) do
-    {:ok, response} = Station.get_stations()
-    response = Jason.decode!(response)
-    stations = response["data"]
+    {:ok, stations} = Station.get_stations()
+    IO.inspect(stations)
 
-    {:reply, {:ok, stations}, socket}
+    {:reply, {:ok, %{stations: stations}}, socket}
   end
 end
